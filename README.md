@@ -28,3 +28,4 @@ Config variables description
 | mgmt_instance_keypair_name | ecommerce | MGMT station vm keypair |
 | mgmt_instance_username | ubuntu | MGMT station vm username |
 | mgmt_instance_ami | ami-43a15f3e | MGMT station vm aws image |
+| copy_project_to_mgmt_station | false | Indicate is required to copy project folder to mgmt station. Set to *true* if you have master template with all required components on your local machine"
