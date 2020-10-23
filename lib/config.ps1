@@ -2,8 +2,10 @@ function Read-EnvConfig
 {
     [CmdletBinding()]
     param (
-        [Parameter(Mandatory=$false, Position=0)]
-        [string] $Path
+        [Parameter(Mandatory=$true, Position=0)]
+        [string] $Path,
+        [Parameter(Mandatory=$false, Position=1)]
+        [string] $Prefix
     )
 
     if (($Path -eq $null) -or ($Path -eq "")) {
@@ -16,6 +18,16 @@ function Read-EnvConfig
 
     # $Config = Get-Content -Path $Path | ConvertFrom-Json | ConvertTo-Hashtable
     $Config = Get-Content -Path $Path | Out-String | ConvertFrom-Json | ConvertObjectToHashtable
+
+    # Copy prefix parameters to global config
+    if ($Prefix) {
+        Write-Host "Used variables from config with prefix '$Prefix'"
+
+        foreach ($key in $config.$Prefix.Keys) {
+            $config.$key = $config.$Prefix.Item($key)
+        }
+    }
+
     Write-Output $Config
 }
 
@@ -50,7 +62,9 @@ function Read-EnvResources
     [CmdletBinding()]
     param (
         [Parameter(Mandatory=$false, Position=0)]
-        [string] $Path
+        [string] $Path,
+        [Parameter(Mandatory=$false, Position=1)]
+        [string] $Prefix
     )
 
     $Path = ConvertTo-EnvResourcesPath -Path $Path
@@ -65,6 +79,7 @@ function Read-EnvResources
 
     # $Resources  = Get-Content -Path $Path | ConvertFrom-Json | ConvertTo-Hashtable
     $Resources  = Get-Content -Path $Path | Out-String | ConvertFrom-Json | ConvertObjectToHashtable
+
     Write-Output $Resources
 }
 
@@ -75,10 +90,25 @@ function Write-EnvResources
         [Parameter(Mandatory=$true, Position=0)]
         [string] $Path,
         [Parameter(Mandatory=$true, Position=1)]
-        [hashtable] $Resources
+        [hashtable] $Resources,
+        [Parameter(Mandatory=$false, Position=2)]
+        [string] $Prefix
     )
 
     $Path = ConvertTo-EnvResourcesPath -Path $Path
+
+    # Write-Output $Resources
+    if ($Prefix) {
+        $Resources.$Prefix = @{}
+        Write-Host "Saving variables to resources with prefix '$Prefix'"
+
+        foreach ($key in $Resources.Keys) {
+            # Do not copy objects to prefix values
+            if ($key -ne $Prefix -and $resources.Item($key).Count -eq 1) {
+                $Resources.$Prefix.$key = $resources.Item($key)
+            }
+        }
+    }
 
     $Content = ConvertTo-Json $Resources
     Set-Content -Path $Path -Value $Content
