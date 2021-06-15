@@ -1,0 +1,29 @@
+{
+    "environment": {
+        "type": "onprem",
+        "name": "pip-onprem-demo",
+        "version": "1.0.0"
+    },
+    "hw": {
+        "cloud": "aws",
+        "copy_project_to_mgmt_station": true,
+        "aws": {
+            "region": "us-east-1",
+            "access_id" : "XXX",
+            "access_key": "XXX",
+            "vpc": "vpc-bb755cc1"
+        },
+        "mgmt": {
+            "type": "t2.medium",
+            "username": "ubuntu",
+            "ami": "ami-43a15f3e",
+            "keypair_new": true,
+            "keypair_name": "pipdevs",
+            "subnet_cidr": "172.31.100.0/28",
+            "subnet_zone": "us-east-1a",
+            "ssh_allowed_cidr_blocks":  [
+                "109.254.254.158/32"
+            ]
+        }
+    }
+}
