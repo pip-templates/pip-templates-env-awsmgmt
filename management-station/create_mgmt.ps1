@@ -67,7 +67,7 @@ $templateParams = @{
     mgmt_instance_type = Get-EnvMapValue -Map $config -Key "hw.$ConfigPrefix.type"
     mgmt_instance_ami = Get-EnvMapValue -Map $config -Key "hw.$ConfigPrefix.ami"
     mgmt_instance_keypair_name = Get-EnvMapValue -Map $config -Key "hw.$ConfigPrefix.keypair_name"
-    env_name = Get-EnvMapValue -Map $config -Key "hw.environment.name"
+    env_name = Get-EnvMapValue -Map $config -Key "environment.name"
 }
 Build-EnvTemplate -InputPath "$($path)/templates/cloudformation_mgmt.yml" -OutputPath "$($path)/../temp/cloudformation_mgmt.yml" -Params1 $templateParams
 

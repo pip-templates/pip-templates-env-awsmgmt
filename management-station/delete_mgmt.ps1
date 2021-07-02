@@ -56,5 +56,6 @@ Remove-EnvMapValue -Map $resources -Key "mgmt.private_ip"
 Remove-EnvMapValue -Map $resources -Key "mgmt.public_ip"
 Remove-EnvMapValue -Map $resources -Key "mgmt.id"
 Remove-EnvMapValue -Map $resources -Key "mgmt.sg_id"
+Remove-EnvMapValue -Map $resources -Key "mgmt.ssh_cmd"
 
 Write-EnvResources -Path $ConfigPath -Resources $resources
