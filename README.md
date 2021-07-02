@@ -7,7 +7,7 @@ This is a template for management station hosted on aws cloud. Management statio
 - Download this repository
 - Add content of *config/config.mgmt.json.add* to json config file from master template and set the required values
 - Copy *mangement-station* folder to master template
-- Run root scripts (*create_mgmt.ps1*/*delete_mgmt.ps1*)
+- Run root scripts (*create_hw.ps1*/*delete_hw.ps1*)
 
 # Config parameters
 
@@ -19,7 +19,7 @@ Config variables description
 | environment.name | pip-onprem-demo | Name of the environment. Will be used for resources names |
 | environment.version | 1.0.0 | Version of the environment |
 | hw.cloud | aws | Type of cloud |
-| copy_project_to_mgmt_station | true | Indicate is required to copy project folder to mgmt station
+| copy_project_to_mgmt_station | true | Indicate is required to copy project folder to mgmt station |
 | hw.aws.access_id | XXX | AWS id for access resources |
 | hw.aws.access_key | XXX | AWS key for access resources |
 | hw.aws.region | us-east-1 | AWS region where resources will be created |
